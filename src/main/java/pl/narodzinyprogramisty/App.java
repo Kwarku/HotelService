@@ -2,14 +2,16 @@ package pl.narodzinyprogramisty;
 
 import pl.narodzinyprogramisty.communications.HotelPresenter;
 import pl.narodzinyprogramisty.communications.Menu;
+import pl.narodzinyprogramisty.data.Guest;
 import pl.narodzinyprogramisty.data.Hotel;
+import pl.narodzinyprogramisty.exceptions.NoAdultGuestException;
+import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
+import pl.narodzinyprogramisty.utils.CreateGuests;
 import pl.narodzinyprogramisty.utils.CreateHotel;
 
+import java.util.List;
 import java.util.Scanner;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -19,6 +21,8 @@ public class App {
 
         int userChoose;
         int roomNumber;
+        int guests;
+        List<Guest> guestList;
 
 
         messages.greeting();
@@ -40,7 +44,16 @@ public class App {
                 case BOOK_ROOM: {
                     messages.askForRoomNumber();
                     roomNumber = scanner.nextInt();
-                    messages.bookRoomInHotel(hotel1, roomNumber);
+                    messages.askForGuestNumber();
+                    guests = scanner.nextInt();
+                    guestList = CreateGuests.makeSomeGuest(guests);
+                    try {
+                        messages.bookRoomInHotel(hotel1, roomNumber, guestList);
+                    } catch (NoAdultGuestException e) {
+                        System.out.println(e.toString());
+                    } catch (RoomToSmallException e) {
+                        System.out.println(e.toString());
+                    }
                     break;
                 }
                 case FREE_ROOM: {
@@ -53,7 +66,7 @@ public class App {
                     messages.farewell();
                     break;
                 }
-                case ABOUT_HOTEL:{
+                case ABOUT_HOTEL: {
                     messages.aboutHotel(hotel1);
                     break;
                 }

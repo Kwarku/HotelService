@@ -1,10 +1,13 @@
 package pl.narodzinyprogramisty.data;
 
+import java.util.List;
+
 public class Room {
     private byte roomNumber;
     private byte numberOfPeople;
     private boolean isBathroom;
     private boolean isAvailable;
+    private List<Guest> guestList;
 
     public Room(byte roomNumber, byte numberOfPeople, boolean isBathroom) {
         this.roomNumber = roomNumber;
@@ -46,13 +49,29 @@ public class Room {
         isAvailable = available;
     }
 
+    public List<Guest> getGuestList() {
+        return guestList;
+    }
+
+    public void setGuestList(List<Guest> guestList) {
+        this.guestList = guestList;
+    }
+
+    private List<Guest> showGuestList(){
+        if (!isAvailable) {
+            return guestList;
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
-        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s, is free: %-6s",
+        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s, is free: %-5s. Guest list: %s",
                 roomNumber,
                 numberOfPeople,
                 isBathroom,
-                isAvailable);
+                isAvailable,
+                showGuestList());
         return show;
     }
 }

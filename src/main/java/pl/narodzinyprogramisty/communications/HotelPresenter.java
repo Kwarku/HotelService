@@ -1,8 +1,11 @@
 package pl.narodzinyprogramisty.communications;
 
 import pl.narodzinyprogramisty.buissnesLogic.HotelService;
+import pl.narodzinyprogramisty.data.Guest;
 import pl.narodzinyprogramisty.data.Hotel;
 import pl.narodzinyprogramisty.data.Room;
+import pl.narodzinyprogramisty.exceptions.NoAdultGuestException;
+import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
 
 import java.util.List;
 
@@ -63,8 +66,8 @@ public class HotelPresenter implements HotelUI {
         }
     }
 
-    public void bookRoomInHotel(Hotel hotel, int roomNumber) {
-        if (hotelService.bookRoom(hotel, roomNumber)) {
+    public void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException {
+        if (hotelService.bookRoom(hotel, roomNumber,guests)) {
             System.out.printf("Room %d is yours now", roomNumber);
         } else {
             System.out.printf("menuError, room %d is booked", roomNumber);
@@ -81,6 +84,11 @@ public class HotelPresenter implements HotelUI {
 
     public void askForRoomNumber() {
         System.out.println("Enter number of room");
+    }
+
+    @Override
+    public void askForGuestNumber() {
+        System.out.println("Enter number of guests");
     }
 
 
