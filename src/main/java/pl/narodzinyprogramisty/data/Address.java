@@ -68,13 +68,12 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "street='" + street + '\'' +
-                ", streetNumber='" + streetNumber + '\'' +
-                ", number=" + number +
-                ", postCode='" + postCode + '\'' +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+        return String.format("%s %s/%d, %s %s. %s",
+                street,
+                streetNumber,
+                number,
+                postCode,
+                city,
+                country);
     }
 }

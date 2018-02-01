@@ -66,11 +66,16 @@ public class Hotel {
         this.hotelRoomService = hotelRoomService;
     }
 
+    //Hotel: Radison blue, adres
     @Override
     public String toString() {
+
+        return String.format("%s, %s", hotelName, hotelAddress);
+/*
         return "Hotel{" +
                 "hotelName='" + hotelName + '\'' +
                 ", hotelAddress=" + hotelAddress +
                 '}';
+*/
     }
 }

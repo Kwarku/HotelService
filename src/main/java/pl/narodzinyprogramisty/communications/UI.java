@@ -4,6 +4,6 @@ public interface UI {
     void greeting();
     void menu();
     void farewell();
-    void error();
+    void menuError();
 
 }
