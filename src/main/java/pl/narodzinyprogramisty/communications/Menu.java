@@ -5,7 +5,8 @@ public enum Menu {
     FREE(2),
     BOOK_ROOM(3),
     FREE_ROOM(4),
-    ABOUT_HOTEL(5),
+    CLEAN_ROOM(5),
+    ABOUT_HOTEL(6),
     CLOSE(0),
     OTHER(Integer.MIN_VALUE);
 

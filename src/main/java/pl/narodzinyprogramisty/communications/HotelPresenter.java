@@ -4,7 +4,9 @@ import pl.narodzinyprogramisty.buissnesLogic.HotelService;
 import pl.narodzinyprogramisty.data.Guest;
 import pl.narodzinyprogramisty.data.Hotel;
 import pl.narodzinyprogramisty.data.Room;
+import pl.narodzinyprogramisty.exceptions.DirtyRoomException;
 import pl.narodzinyprogramisty.exceptions.NoAdultGuestException;
+import pl.narodzinyprogramisty.exceptions.NotDirtyRoomException;
 import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
 
 import java.util.List;
@@ -17,10 +19,11 @@ public class HotelPresenter implements HotelUI {
     }
 
     public void menu() {
-        System.out.printf("\n\nWhat you want\n%d. show all rooms\n" +
+        System.out.printf("\nWhat you want\n%d. show all rooms\n" +
                         "%d. show all free rooms\n" +
                         "%d. book room\n" +
                         "%d. free your room\n" +
+                        "%d. call cleaning service to clean some room\n" +
                         "%d. information about the hotel\n" +
                         "%d. close program\n" +
                         "Enter what you want : ",
@@ -28,6 +31,7 @@ public class HotelPresenter implements HotelUI {
                 Menu.FREE.number,
                 Menu.BOOK_ROOM.number,
                 Menu.FREE_ROOM.number,
+                Menu.CLEAN_ROOM.number,
                 Menu.ABOUT_HOTEL.number,
                 Menu.CLOSE.number);
     }
@@ -50,7 +54,7 @@ public class HotelPresenter implements HotelUI {
     }
 
     public void printFreeRoom(Hotel hotel) {
-        printedRooms(hotelService.getAllFreeRooms(hotel));
+        printedRooms(hotelService.getAllAvailableRooms(hotel));
 
     }
 
@@ -66,8 +70,8 @@ public class HotelPresenter implements HotelUI {
         }
     }
 
-    public void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException {
-        if (hotelService.bookRoom(hotel, roomNumber,guests)) {
+    public void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+        if (hotelService.bookRoom(hotel, roomNumber, guests)) {
             System.out.printf("Room %d is yours now", roomNumber);
         } else {
             System.out.printf("menuError, room %d is booked", roomNumber);
@@ -75,10 +79,18 @@ public class HotelPresenter implements HotelUI {
     }
 
     public void freeRoomInHotel(Hotel hotel, int roomNumber) {
-        if (hotelService.freeRoom(hotel, roomNumber)) {
+        if (hotelService.makeRoomEmpty(hotel, roomNumber)) {
             System.out.printf("Success, room %d is free now", roomNumber);
         } else {
             System.out.printf("menuError, room %d is not booked", roomNumber);
+        }
+    }
+
+    public void cleanRoomInHotel(Hotel hotel, int roomNumber) throws NotDirtyRoomException{
+        if (hotelService.makeRoomClean(hotel, roomNumber)){
+            System.out.printf("the room nr %d is clean now, you can book it",roomNumber);
+        }else {
+            System.out.printf("Error, room %d cant be cleaning. We so sorry. Please book other room");
         }
     }
 

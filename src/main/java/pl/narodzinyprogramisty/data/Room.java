@@ -7,6 +7,7 @@ public class Room {
     private byte numberOfPeople;
     private boolean isBathroom;
     private boolean isAvailable;
+    private boolean isClean;
     private List<Guest> guestList;
 
     public Room(byte roomNumber, byte numberOfPeople, boolean isBathroom) {
@@ -14,6 +15,7 @@ public class Room {
         this.numberOfPeople = numberOfPeople;
         this.isBathroom = isBathroom;
         this.isAvailable = true;
+        this.isClean = true;
     }
 
 
@@ -49,6 +51,14 @@ public class Room {
         isAvailable = available;
     }
 
+    public boolean isClean() {
+        return isClean;
+    }
+
+    public void setClean(boolean clean) {
+        isClean = clean;
+    }
+
     public List<Guest> getGuestList() {
         return guestList;
     }
@@ -66,11 +76,12 @@ public class Room {
 
     @Override
     public String toString() {
-        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s, is free: %-5s. Guest list: %s",
+        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s, is free: %-5s. Is clean: %-5s Guest list: %s",
                 roomNumber,
                 numberOfPeople,
                 isBathroom,
                 isAvailable,
+                isClean,
                 showGuestList());
         return show;
     }

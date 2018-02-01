@@ -4,7 +4,9 @@ import pl.narodzinyprogramisty.communications.HotelPresenter;
 import pl.narodzinyprogramisty.communications.Menu;
 import pl.narodzinyprogramisty.data.Guest;
 import pl.narodzinyprogramisty.data.Hotel;
+import pl.narodzinyprogramisty.exceptions.DirtyRoomException;
 import pl.narodzinyprogramisty.exceptions.NoAdultGuestException;
+import pl.narodzinyprogramisty.exceptions.NotDirtyRoomException;
 import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
 import pl.narodzinyprogramisty.utils.CreateGuests;
 import pl.narodzinyprogramisty.utils.CreateHotel;
@@ -53,6 +55,8 @@ public class App {
                         System.out.println(e.toString());
                     } catch (RoomToSmallException e) {
                         System.out.println(e.toString());
+                    } catch (DirtyRoomException e) {
+                        System.out.println(e.toString());
                     }
                     break;
                 }
@@ -62,12 +66,22 @@ public class App {
                     messages.freeRoomInHotel(hotel1, roomNumber);
                     break;
                 }
-                case CLOSE: {
-                    messages.farewell();
+                case CLEAN_ROOM: {
+                    messages.askForRoomNumber();
+                    roomNumber = scanner.nextInt();
+                    try {
+                        messages.cleanRoomInHotel(hotel1, roomNumber);
+                    } catch (NotDirtyRoomException e) {
+                        System.out.println(e.toString());
+                    }
                     break;
                 }
                 case ABOUT_HOTEL: {
                     messages.aboutHotel(hotel1);
+                    break;
+                }
+                case CLOSE: {
+                    messages.farewell();
                     break;
                 }
                 case OTHER: {
