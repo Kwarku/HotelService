@@ -4,7 +4,6 @@ import pl.narodzinyprogramisty.data.Guest;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.time.MonthDay;
 import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +14,6 @@ public class CreateGuests {
 
     private static String[] names = {"Paweł", "Asia", "Michał", "Kasia", "Aleksander", "Basia", "Marcin", "Aleksandra", "Eustachy", "Balbina"};
     private static String[] lastNames = {"Duda", "Kukiz", "Lewandowski", "Carlos", "Błaszczykowski", "Majkut", "Gates", "Kowalski", "Nowak"};
-    private static String[] birthdays = {"1998-05-07", "2002-09-25", "2014-11-17", "1948-11-01","1986-05-17", "2007-09-15", "1983-11-02", "1935-04-01"};
 
     public static List<Guest> makeSomeGuest(int size) {
         List<Guest> guests = new ArrayList<>();
@@ -28,8 +26,12 @@ public class CreateGuests {
     private static int getRandomNumber(int size) {
         return random.nextInt(size);
     }
-    private static LocalDate randomData() {
-        return LocalDate.parse(birthdays[getRandomNumber(birthdays.length)]);
+
+    private static LocalDate randomData(){
+        Month month = Month.of(getRandomNumber(12) + 1);
+        int day = getRandomNumber(month.getValue()) + 1;
+        int year = Year.now().minusYears(getRandomNumber(100)).getValue();
+        return LocalDate.of(year, month, day);
     }
 
     private static String randomLastNAme() {
