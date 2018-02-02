@@ -10,7 +10,7 @@ import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
 
 import java.util.List;
 
-public interface HotelServiceLogic {
+public interface HotelServiceAPI {
 
     List<Room> getAllRooms(Hotel hotel);
 

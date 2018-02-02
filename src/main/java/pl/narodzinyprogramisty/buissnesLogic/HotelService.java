@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HotelService implements HotelServiceLogic {
+public class HotelService implements HotelServiceAPI {
     private static final int YEARS_TO_ADULTS = 18;
 
     public List<Room> getAllRooms(Hotel hotel) {
@@ -30,7 +30,7 @@ public class HotelService implements HotelServiceLogic {
 
 
     public boolean bookRoom(Hotel hotel, int number, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        if (isItRoomAreGood(hotel, number, guests)) {
+        if (isReadyToOrder(hotel, number, guests)) {
             setReservation(hotel, number);
             accommodateGuests(hotel, number, guests);
             return true;
@@ -63,7 +63,7 @@ public class HotelService implements HotelServiceLogic {
         getRoom(hotel, number).setClean(true);
     }
 
-    private boolean isItRoomAreGood(Hotel hotel, int number, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+    private boolean isReadyToOrder(Hotel hotel, int number, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
         return isRoomFree(hotel, number) && isAnyAdult(guests) && isSizeEnough(hotel, number, guests) && isRoomClean(hotel, number);
     }
 

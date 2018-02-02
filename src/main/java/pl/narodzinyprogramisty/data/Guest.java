@@ -40,6 +40,6 @@ public class Guest {
 
     @Override
     public String toString() {
-        return String.format("%s %s, ur.%d %s %d", name, lastName,dateOfBirth.getDayOfMonth(),dateOfBirth.getMonth() ,dateOfBirth.getYear());
+        return String.format("%s %s, ur.%d %s %d%n", name, lastName,dateOfBirth.getDayOfMonth(),dateOfBirth.getMonth() ,dateOfBirth.getYear());
     }
 }

@@ -1,5 +1,6 @@
 package pl.narodzinyprogramisty.data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Room {
@@ -9,6 +10,8 @@ public class Room {
     private boolean isAvailable;
     private boolean isClean;
     private List<Guest> guestList;
+    private LocalDate checkInDate;
+    private LocalDate checkOutDate;
 
     public Room(byte roomNumber, byte numberOfPeople, boolean isBathroom) {
         this.roomNumber = roomNumber;
@@ -67,6 +70,22 @@ public class Room {
         this.guestList = guestList;
     }
 
+    public LocalDate getCheckInDate() {
+        return checkInDate;
+    }
+
+    public void setCheckInDate(LocalDate checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public LocalDate getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public void setCheckOutDate(LocalDate checkOutDate) {
+        this.checkOutDate = checkOutDate;
+    }
+
     private List<Guest> showGuestList(){
         if (!isAvailable) {
             return guestList;
@@ -76,13 +95,35 @@ public class Room {
 
     @Override
     public String toString() {
-        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s, is free: %-5s. Is clean: %-5s Guest list: %s",
+        if (!isAvailable){
+             return showWhenRoomIsBookedNow();
+        }else if (!isClean){
+            return showWhenRoomIsDirty();
+        }
+        return showWhenRoomIsReadyToBooked();
+    }
+
+    private String showWhenRoomIsReadyToBooked(){
+        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s",
+                roomNumber,
+                numberOfPeople,
+                isBathroom);
+        return show;
+    }
+
+    private String showWhenRoomIsBookedNow(){
+        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s.%nGuest list: %s",
                 roomNumber,
                 numberOfPeople,
                 isBathroom,
-                isAvailable,
-                isClean,
                 showGuestList());
+        return show;
+    }
+    private String showWhenRoomIsDirty(){
+        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s, Room dirty",
+                roomNumber,
+                numberOfPeople,
+                isBathroom);
         return show;
     }
 }
