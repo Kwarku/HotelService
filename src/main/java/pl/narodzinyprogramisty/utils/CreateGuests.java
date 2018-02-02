@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Random;
 
 public class CreateGuests {
+    private static final int NUMBER_OF_MONTHS = 12;
+    private static final int LENGTH_OF_HUMAN_LIFE = 100;
     private static Random random = new Random();
 
     private static String[] names = {"Paweł", "Asia", "Michał", "Kasia", "Aleksander", "Basia", "Marcin", "Aleksandra", "Eustachy", "Balbina"};
@@ -28,9 +30,9 @@ public class CreateGuests {
     }
 
     private static LocalDate randomData(){
-        Month month = Month.of(getRandomNumber(12) + 1);
+        Month month = Month.of(getRandomNumber(NUMBER_OF_MONTHS) + 1);
         int day = getRandomNumber(month.getValue()) + 1;
-        int year = Year.now().minusYears(getRandomNumber(100)).getValue();
+        int year = Year.now().minusYears(getRandomNumber(LENGTH_OF_HUMAN_LIFE)).getValue();
         return LocalDate.of(year, month, day);
     }
 
