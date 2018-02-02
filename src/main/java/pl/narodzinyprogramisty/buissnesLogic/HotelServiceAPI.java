@@ -16,7 +16,7 @@ public interface HotelServiceAPI {
 
     List<Room> getAllAvailableRooms(Hotel hotel);
 
-    boolean bookRoom(Hotel hotel, int number, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
+    boolean bookRoom(Hotel hotel, int number, List<Guest> guests, int numberOfNights ) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
 
     boolean makeRoomEmpty(Hotel hotel, int number);
 

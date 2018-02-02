@@ -70,9 +70,9 @@ public class HotelPresenter implements HotelUI {
         }
     }
 
-    public void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        if (hotelService.bookRoom(hotel, roomNumber, guests)) {
-            System.out.printf("Room %d is yours now", roomNumber);
+    public void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests,int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+        if (hotelService.bookRoom(hotel, roomNumber, guests,numberOfNights)) {
+            System.out.printf("Room %d is yours to %d night", roomNumber,numberOfNights);
         } else {
             System.out.printf("menuError, room %d is booked", roomNumber);
         }
@@ -101,6 +101,11 @@ public class HotelPresenter implements HotelUI {
     @Override
     public void askForGuestNumber() {
         System.out.println("Enter number of guests");
+    }
+
+    @Override
+    public void askForNumberOfNights() {
+        System.out.println("How many nights do you want to rent this room");
     }
 
 

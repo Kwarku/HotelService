@@ -17,7 +17,7 @@ public interface HotelUI extends UI {
 
     void printFreeRoom(Hotel hotel);
 
-    void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
+    void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
 
     void freeRoomInHotel(Hotel hotel, int roomNumber);
 
@@ -26,5 +26,7 @@ public interface HotelUI extends UI {
     void askForRoomNumber();
 
     void askForGuestNumber();
+
+    void askForNumberOfNights();
 }
 

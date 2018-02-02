@@ -23,7 +23,8 @@ public class App {
 
         int userChoose;
         int roomNumber;
-        int guests;
+        int numberOfGuests;
+        int numberOfNights;
         List<Guest> guestList;
 
 
@@ -47,10 +48,12 @@ public class App {
                     messages.askForRoomNumber();
                     roomNumber = scanner.nextInt();
                     messages.askForGuestNumber();
-                    guests = scanner.nextInt();
-                    guestList = CreateGuests.makeSomeGuest(guests);
+                    numberOfGuests = scanner.nextInt();
+                    guestList = CreateGuests.makeSomeGuest(numberOfGuests);
+                    messages.askForNumberOfNights();
+                    numberOfNights = scanner.nextInt();
                     try {
-                        messages.bookRoomInHotel(hotel1, roomNumber, guestList);
+                        messages.bookRoomInHotel(hotel1, roomNumber, guestList,numberOfNights);
                     } catch (NoAdultGuestException e) {
                         System.out.println(e.toString());
                     } catch (RoomToSmallException e) {

@@ -29,53 +29,64 @@ public class HotelService implements HotelServiceAPI {
     }
 
 
-    public boolean bookRoom(Hotel hotel, int number, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        if (isReadyToOrder(hotel, number, guests)) {
-            setReservation(hotel, number);
-            accommodateGuests(hotel, number, guests);
+    public boolean bookRoom(Hotel hotel, int roomNumber, List<Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+        if (isReadyToOrder(getRoom(hotel, roomNumber), guests)) {
+            setReservation(getRoom(hotel, roomNumber));
+            accommodateGuests(getRoom(hotel, roomNumber), guests);
+            setDateOfReleaseRoom(getRoom(hotel, roomNumber), numberOfNights);
             return true;
         }
         return false;
     }
 
 
-    public boolean makeRoomEmpty(Hotel hotel, int number) {
-        if (!isRoomFree(hotel, number)) {
-            releaseTheRoom(hotel, number);
+    public boolean makeRoomEmpty(Hotel hotel, int roomNumber) {
+        if (!isRoomFree(getRoom(hotel, roomNumber))) {
+            releaseTheRoom(getRoom(hotel, roomNumber));
             return true;
         }
         return false;
     }
 
-    public boolean makeRoomClean(Hotel hotel, int number) throws NotDirtyRoomException {
-        if (isRoomDirty(hotel, number)) {
-            cleanRoom(hotel, number);
+    public boolean makeRoomClean(Hotel hotel, int roomNumber) throws NotDirtyRoomException {
+        if (isRoomDirty(getRoom(hotel, roomNumber))) {
+            cleanRoom(getRoom(hotel, roomNumber));
             return true;
         }
         throw new NotDirtyRoomException();
     }
 
-    private boolean isRoomDirty(Hotel hotel, int number) {
-        return !getRoom(hotel, number).isClean();
+    private void setDateOfReleaseRoom(Room room, int numberOfNights) {
+        setDateOfStartVisit(room);
+        room.setCheckOutDate(room.getCheckInDate().plusDays(numberOfNights));
+
     }
 
-    private void cleanRoom(Hotel hotel, int number) {
-        getRoom(hotel, number).setClean(true);
+    private void setDateOfStartVisit(Room room) {
+        room.setCheckInDate(LocalDate.now());
     }
 
-    private boolean isReadyToOrder(Hotel hotel, int number, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        return isRoomFree(hotel, number) && isAnyAdult(guests) && isSizeEnough(hotel, number, guests) && isRoomClean(hotel, number);
+    private boolean isRoomDirty(Room room) {
+        return !room.isClean();
     }
 
-    private boolean isRoomClean(Hotel hotel, int number) throws DirtyRoomException {
-        if (getRoom(hotel, number).isClean()){
+    private void cleanRoom(Room room) {
+        room.setClean(true);
+    }
+
+    private boolean isReadyToOrder(Room room, List<Guest> guests) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+        return isRoomFree(room) && isAnyAdult(guests) && isSizeEnough(room, guests) && isRoomClean(room);
+    }
+
+    private boolean isRoomClean(Room room) throws DirtyRoomException {
+        if (room.isClean()) {
             return true;
         }
         throw new DirtyRoomException();
     }
 
-    private boolean isSizeEnough(Hotel hotel, int number, List<Guest> guests) throws RoomToSmallException {
-        if (getRoom(hotel, number).getNumberOfPeople() >= guests.size()){
+    private boolean isSizeEnough(Room room, List<Guest> guests) throws RoomToSmallException {
+        if (room.getNumberOfPeople() >= guests.size()) {
             return true;
         }
         throw new RoomToSmallException();
@@ -108,35 +119,35 @@ public class HotelService implements HotelServiceAPI {
         }
     }
 
-    private Room getRoom(Hotel hotel, int index) {
-        return hotel.getHotelRoomService().get(index - 1);
+    private Room getRoom(Hotel hotel, int roomNumber) {
+        return hotel.getHotelRoomService().get(roomNumber - 1);
     }
 
-    private boolean isRoomFree(Hotel hotel, int index) {
-        return getRoom(hotel, index).isAvailable();
+    private boolean isRoomFree(Room room) {
+        return room.isAvailable();
     }
 
-    private void setReservation(Hotel hotel, int index) {
-        getRoom(hotel, index).setAvailable(false);
+    private void setReservation(Room room) {
+        room.setAvailable(false);
     }
 
-    private void accommodateGuests(Hotel hotel, int index, List<Guest> guests) {
-        getRoom(hotel, index).setGuestList(guests);
+    private void accommodateGuests(Room room, List<Guest> guests) {
+        room.setGuestList(guests);
     }
 
-    private void releaseTheRoom(Hotel hotel, int index) {
-        getRoom(hotel, index).setAvailable(true);
-        checkOutGuests(hotel, index);
-        makeRoomDirty(hotel, index);
+    private void releaseTheRoom(Room room) {
+        room.setAvailable(true);
+        checkOutGuests(room);
+        makeRoomDirty(room);
     }
 
-    private void makeRoomDirty(Hotel hotel, int index) {
-        getRoom(hotel, index).setClean(false);
+    private void makeRoomDirty(Room room) {
+        room.setClean(false);
     }
 
 
-    private void checkOutGuests(Hotel hotel, int index) {
-        getRoom(hotel, index).setGuestList(null);
+    private void checkOutGuests(Room room) {
+        room.setGuestList(null);
     }
 
 

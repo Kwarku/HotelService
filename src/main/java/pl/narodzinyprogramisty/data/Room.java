@@ -112,10 +112,13 @@ public class Room {
     }
 
     private String showWhenRoomIsBookedNow(){
-        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s.%nGuest list: %s",
+        String show = String.format("Room nr: %-4d, for %-3d people, is bathroom in : %-6s. Will be free : %d %s %d. %nGuest list: %s",
                 roomNumber,
                 numberOfPeople,
                 isBathroom,
+                checkOutDate.getDayOfMonth(),
+                checkOutDate.getMonth(),
+                checkOutDate.getYear(),
                 showGuestList());
         return show;
     }
