@@ -3,6 +3,9 @@ package pl.narodzinyprogramisty.utils;
 import pl.narodzinyprogramisty.data.Guest;
 
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.MonthDay;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -25,7 +28,6 @@ public class CreateGuests {
     private static int getRandomNumber(int size) {
         return random.nextInt(size);
     }
-
     private static LocalDate randomData() {
         return LocalDate.parse(birthdays[getRandomNumber(birthdays.length)]);
     }

@@ -28,7 +28,7 @@ public class HotelAppController {
     }
 
     public void printAllRooms() {
-        messeges.printFreeRoom(hotel);
+        messeges.printAllRooms(hotel);
 
     }
 

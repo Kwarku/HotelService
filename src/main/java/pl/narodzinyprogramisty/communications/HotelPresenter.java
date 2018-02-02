@@ -90,7 +90,7 @@ public class HotelPresenter implements HotelUI {
         if (hotelService.makeRoomClean(hotel, roomNumber)){
             System.out.printf("the room nr %d is clean now, you can book it",roomNumber);
         }else {
-            System.out.printf("Error, room %d cant be cleaning. We so sorry. Please book other room");
+            System.out.printf("Error, room %d cant be cleaning. We so sorry. Please book other room",roomNumber);
         }
     }
 
