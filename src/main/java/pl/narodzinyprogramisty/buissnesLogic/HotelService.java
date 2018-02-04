@@ -17,7 +17,7 @@ public class HotelService implements HotelServiceAPI {
 
     public List<Room> getAllRooms(Hotel hotel) {
         List<Room> rooms = createRoomsList();
-        rooms.addAll(hotel.getHotelRoomService());
+        rooms.addAll(hotel.getRoomsInHotel());
         return rooms;
     }
 
@@ -112,7 +112,7 @@ public class HotelService implements HotelServiceAPI {
     }
 
     private void takeAvailableRoom(Hotel hotel, List<Room> freeRooms) {
-        for (Room room : hotel.getHotelRoomService()) {
+        for (Room room : hotel.getRoomsInHotel()) {
             if (room.isAvailable() && room.isClean()) {
                 freeRooms.add(room);
             }
@@ -120,7 +120,7 @@ public class HotelService implements HotelServiceAPI {
     }
 
     private Room getRoom(Hotel hotel, int roomNumber) {
-        return hotel.getHotelRoomService().get(roomNumber - 1);
+        return hotel.getRoomsInHotel().get(roomNumber - 1);
     }
 
     private boolean isRoomFree(Room room) {
