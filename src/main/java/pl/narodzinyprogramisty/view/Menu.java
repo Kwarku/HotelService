@@ -1,4 +1,4 @@
-package pl.narodzinyprogramisty.communications;
+package pl.narodzinyprogramisty.view;
 
 public enum Menu {
     ALL(1),
@@ -11,12 +11,13 @@ public enum Menu {
     OTHER(Integer.MIN_VALUE);
 
     int number;
+
     Menu(int number) {
         this.number = number;
 
     }
 
-    public static Menu getMenu(int num){
+    public static Menu getMenu(int num) {
         for (Menu menu : Menu.values()) {
             if (menu.number == num) {
                 return menu;

@@ -1,4 +1,4 @@
-package pl.narodzinyprogramisty.data;
+package pl.narodzinyprogramisty.model.domain;
 
 import java.time.LocalDate;
 import java.util.List;

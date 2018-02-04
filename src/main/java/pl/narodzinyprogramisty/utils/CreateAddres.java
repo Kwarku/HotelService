@@ -1,6 +1,6 @@
 package pl.narodzinyprogramisty.utils;
 
-import pl.narodzinyprogramisty.data.Address;
+import pl.narodzinyprogramisty.model.domain.Address;
 
 public class CreateAddres {
     public static Address makeNewAddres(){

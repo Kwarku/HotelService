@@ -1,6 +1,6 @@
 package pl.narodzinyprogramisty.utils;
 
-import pl.narodzinyprogramisty.data.Hotel;
+import pl.narodzinyprogramisty.model.domain.Hotel;
 
 public class CreateHotel {
     public static Hotel makeNewHotel() {

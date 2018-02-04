@@ -1,10 +1,8 @@
-package pl.narodzinyprogramisty.data;
+package pl.narodzinyprogramisty.model.domain;
 
 import pl.narodzinyprogramisty.utils.CreateRooms;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Hotel {
     private String hotelName;

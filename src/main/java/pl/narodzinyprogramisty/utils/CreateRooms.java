@@ -1,6 +1,6 @@
 package pl.narodzinyprogramisty.utils;
 
-import pl.narodzinyprogramisty.data.Room;
+import pl.narodzinyprogramisty.model.domain.Room;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package pl.narodzinyprogramisty.data;
+package pl.narodzinyprogramisty.model.domain;
 
 public class Address {
     private String street;

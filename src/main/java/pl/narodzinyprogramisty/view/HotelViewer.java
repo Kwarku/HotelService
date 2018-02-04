@@ -1,24 +1,26 @@
-package pl.narodzinyprogramisty.communications;
+package pl.narodzinyprogramisty.view;
 
-import pl.narodzinyprogramisty.buissnesLogic.HotelService;
-import pl.narodzinyprogramisty.data.Guest;
-import pl.narodzinyprogramisty.data.Hotel;
-import pl.narodzinyprogramisty.data.Room;
-import pl.narodzinyprogramisty.exceptions.DirtyRoomException;
-import pl.narodzinyprogramisty.exceptions.NoAdultGuestException;
-import pl.narodzinyprogramisty.exceptions.NotDirtyRoomException;
-import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
+import pl.narodzinyprogramisty.model.HotelService;
+import pl.narodzinyprogramisty.model.domain.Guest;
+import pl.narodzinyprogramisty.model.domain.Hotel;
+import pl.narodzinyprogramisty.model.domain.Room;
+import pl.narodzinyprogramisty.utils.exceptions.DirtyRoomException;
+import pl.narodzinyprogramisty.utils.exceptions.NoAdultGuestException;
+import pl.narodzinyprogramisty.utils.exceptions.NotDirtyRoomException;
+import pl.narodzinyprogramisty.utils.exceptions.RoomToSmallException;
 
 import java.util.List;
+import java.util.Scanner;
 
-public class HotelPresenter implements HotelUI {
+public class HotelViewer implements HotelUI {
+    private Scanner sc = new Scanner(System.in);
     private HotelService hotelService = new HotelService();
 
     public void greeting() {
         System.out.println("Hello user. Im hotel room service\n");
     }
 
-    public void menu() {
+    public int menu() {
         System.out.printf("\nWhat you want\n%d. show all rooms\n" +
                         "%d. show all free rooms\n" +
                         "%d. book room\n" +
@@ -34,6 +36,7 @@ public class HotelPresenter implements HotelUI {
                 Menu.CLEAN_ROOM.number,
                 Menu.ABOUT_HOTEL.number,
                 Menu.CLOSE.number);
+        return takeNumber();
     }
 
     public void farewell() {
@@ -44,6 +47,9 @@ public class HotelPresenter implements HotelUI {
         System.out.println("Error,  pick some else menu element");
     }
 
+    public void error(String msg) {
+        System.out.println(msg);
+    }
 
     public void aboutHotel(Hotel hotel) {
         System.out.println("About hotel : " + hotel.toString());
@@ -58,7 +64,7 @@ public class HotelPresenter implements HotelUI {
 
     }
 
-    private void printedRooms(List<Room> list) {
+    private void printedRooms(List <Room> list) {
         int temp = 0;
         for (Room room : list) {
             temp++;
@@ -70,9 +76,9 @@ public class HotelPresenter implements HotelUI {
         }
     }
 
-    public void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests,int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        if (hotelService.bookRoom(hotel, roomNumber, guests,numberOfNights)) {
-            System.out.printf("Room %d is yours to %d night", roomNumber,numberOfNights);
+    public void bookRoomInHotel(Hotel hotel, int roomNumber, List <Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+        if (hotelService.bookRoom(hotel, roomNumber, guests, numberOfNights)) {
+            System.out.printf("Room %d is yours to %d night", roomNumber, numberOfNights);
         } else {
             System.out.printf("menuError, room %d is booked", roomNumber);
         }
@@ -86,27 +92,31 @@ public class HotelPresenter implements HotelUI {
         }
     }
 
-    public void cleanRoomInHotel(Hotel hotel, int roomNumber) throws NotDirtyRoomException{
-        if (hotelService.makeRoomClean(hotel, roomNumber)){
-            System.out.printf("the room nr %d is clean now, you can book it",roomNumber);
-        }else {
-            System.out.printf("Error, room %d cant be cleaning. We so sorry. Please book other room",roomNumber);
+    public void cleanRoomInHotel(Hotel hotel, int roomNumber) throws NotDirtyRoomException {
+        if (hotelService.makeRoomClean(hotel, roomNumber)) {
+            System.out.printf("the room nr %d is clean now, you can book it", roomNumber);
+        } else {
+            System.out.printf("Error, room %d cant be cleaning. We so sorry. Please book other room", roomNumber);
         }
     }
 
-    public void askForRoomNumber() {
+    public int askForRoomNumber() {
         System.out.println("Enter number of room");
+        return takeNumber();
     }
 
-    @Override
-    public void askForGuestNumber() {
+    public int askForGuestNumber() {
         System.out.println("Enter number of guests");
+        return takeNumber();
     }
 
-    @Override
-    public void askForNumberOfNights() {
+    public int askForNumberOfNights() {
         System.out.println("How many nights do you want to rent this room");
+        return takeNumber();
     }
 
 
+    private int takeNumber() {
+        return sc.nextInt();
+    }
 }
