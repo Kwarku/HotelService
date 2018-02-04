@@ -1,12 +1,12 @@
-package pl.narodzinyprogramisty.buissnesLogic;
+package pl.narodzinyprogramisty.model;
 
-import pl.narodzinyprogramisty.data.Guest;
-import pl.narodzinyprogramisty.data.Hotel;
-import pl.narodzinyprogramisty.data.Room;
-import pl.narodzinyprogramisty.exceptions.DirtyRoomException;
-import pl.narodzinyprogramisty.exceptions.NoAdultGuestException;
-import pl.narodzinyprogramisty.exceptions.NotDirtyRoomException;
-import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
+import pl.narodzinyprogramisty.model.domain.Guest;
+import pl.narodzinyprogramisty.model.domain.Hotel;
+import pl.narodzinyprogramisty.model.domain.Room;
+import pl.narodzinyprogramisty.utils.exceptions.DirtyRoomException;
+import pl.narodzinyprogramisty.utils.exceptions.NoAdultGuestException;
+import pl.narodzinyprogramisty.utils.exceptions.NotDirtyRoomException;
+import pl.narodzinyprogramisty.utils.exceptions.RoomToSmallException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,6 +14,8 @@ import java.util.List;
 
 public class HotelService implements HotelServiceAPI {
     private static final int YEARS_TO_ADULTS = 18;
+    //todo stworzyc hotel w konstruktorze do hotel servisu
+
 
     public List<Room> getAllRooms(Hotel hotel) {
         List<Room> rooms = createRoomsList();
@@ -31,9 +33,7 @@ public class HotelService implements HotelServiceAPI {
 
     public boolean bookRoom(Hotel hotel, int roomNumber, List<Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
         if (isReadyToOrder(getRoom(hotel, roomNumber), guests)) {
-            setReservation(getRoom(hotel, roomNumber));
-            accommodateGuests(getRoom(hotel, roomNumber), guests);
-            setDateOfReleaseRoom(getRoom(hotel, roomNumber), numberOfNights);
+            bookThisRoom(hotel, roomNumber, guests, numberOfNights);
             return true;
         }
         return false;
@@ -54,6 +54,12 @@ public class HotelService implements HotelServiceAPI {
             return true;
         }
         throw new NotDirtyRoomException();
+    }
+
+    private void bookThisRoom(Hotel hotel, int roomNumber, List<Guest> guests, int numberOfNights) {
+        setReservation(getRoom(hotel, roomNumber));
+        accommodateGuests(getRoom(hotel, roomNumber), guests);
+        setDateOfReleaseRoom(getRoom(hotel, roomNumber), numberOfNights);
     }
 
     private void setDateOfReleaseRoom(Room room, int numberOfNights) {

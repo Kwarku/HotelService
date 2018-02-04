@@ -1,4 +1,4 @@
-package pl.narodzinyprogramisty.exceptions;
+package pl.narodzinyprogramisty.utils.exceptions;
 
 public class RoomToSmallException extends Exception {
     public RoomToSmallException(){}

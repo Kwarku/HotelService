@@ -1,6 +1,6 @@
 package pl.narodzinyprogramisty.utils;
 
-import pl.narodzinyprogramisty.data.Guest;
+import pl.narodzinyprogramisty.model.domain.Guest;
 
 import java.time.LocalDate;
 import java.time.Month;

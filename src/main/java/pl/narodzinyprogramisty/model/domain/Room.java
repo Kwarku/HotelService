@@ -1,11 +1,12 @@
-package pl.narodzinyprogramisty.data;
+package pl.narodzinyprogramisty.model.domain;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class Room {
-    private byte roomNumber;
-    private byte numberOfPeople;
+    private int roomNumber;
+    private int numberOfPeople;
     private boolean isBathroom;
     private boolean isAvailable;
     private boolean isClean;
@@ -13,7 +14,7 @@ public class Room {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
 
-    public Room(byte roomNumber, byte numberOfPeople, boolean isBathroom) {
+    public Room(int roomNumber, int numberOfPeople, boolean isBathroom) {
         this.roomNumber = roomNumber;
         this.numberOfPeople = numberOfPeople;
         this.isBathroom = isBathroom;
@@ -22,7 +23,7 @@ public class Room {
     }
 
 
-    public byte getRoomNumber() {
+    public int getRoomNumber() {
         return roomNumber;
     }
 
@@ -30,7 +31,7 @@ public class Room {
         this.roomNumber = roomNumber;
     }
 
-    public byte getNumberOfPeople() {
+    public int getNumberOfPeople() {
         return numberOfPeople;
     }
 
@@ -116,6 +117,7 @@ public class Room {
                 roomNumber,
                 numberOfPeople,
                 isBathroom,
+                //blad
                 checkOutDate.getDayOfMonth(),
                 checkOutDate.getMonth(),
                 checkOutDate.getYear(),
@@ -128,5 +130,26 @@ public class Room {
                 numberOfPeople,
                 isBathroom);
         return show;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return roomNumber == room.roomNumber &&
+                numberOfPeople == room.numberOfPeople &&
+                isBathroom == room.isBathroom &&
+                isAvailable == room.isAvailable &&
+                isClean == room.isClean &&
+                Objects.equals(guestList, room.guestList) &&
+                Objects.equals(checkInDate, room.checkInDate) &&
+                Objects.equals(checkOutDate, room.checkOutDate);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(roomNumber, numberOfPeople, isBathroom, isAvailable, isClean, guestList, checkInDate, checkOutDate);
     }
 }

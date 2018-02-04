@@ -1,12 +1,12 @@
-package pl.narodzinyprogramisty.buissnesLogic;
+package pl.narodzinyprogramisty.model;
 
-import pl.narodzinyprogramisty.data.Guest;
-import pl.narodzinyprogramisty.data.Hotel;
-import pl.narodzinyprogramisty.data.Room;
-import pl.narodzinyprogramisty.exceptions.DirtyRoomException;
-import pl.narodzinyprogramisty.exceptions.NoAdultGuestException;
-import pl.narodzinyprogramisty.exceptions.NotDirtyRoomException;
-import pl.narodzinyprogramisty.exceptions.RoomToSmallException;
+import pl.narodzinyprogramisty.model.domain.Guest;
+import pl.narodzinyprogramisty.model.domain.Hotel;
+import pl.narodzinyprogramisty.model.domain.Room;
+import pl.narodzinyprogramisty.utils.exceptions.DirtyRoomException;
+import pl.narodzinyprogramisty.utils.exceptions.NoAdultGuestException;
+import pl.narodzinyprogramisty.utils.exceptions.NotDirtyRoomException;
+import pl.narodzinyprogramisty.utils.exceptions.RoomToSmallException;
 
 import java.util.List;
 

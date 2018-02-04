@@ -1,9 +1,9 @@
 package pl.narodzinyprogramisty.utils;
 
-import pl.narodzinyprogramisty.data.Address;
+import pl.narodzinyprogramisty.model.domain.Address;
 
-public class CreateAddres {
-    public static Address makeNewAddres(){
+public class CreateAddress {
+    public static Address makeNewAddress(){
         return new Address("pl.Rodła", "15B", (short) 2,
                 "75-385", "Szczecin", "Poland");
     }

@@ -1,4 +1,4 @@
-package pl.narodzinyprogramisty.data;
+package pl.narodzinyprogramisty.model.domain;
 
 import pl.narodzinyprogramisty.utils.CreateRooms;
 
@@ -14,9 +14,7 @@ public class Hotel {
         this.hotelName = hotelName;
         this.hotelAddress = hotelAddress;
 
-        roomsInHotel = CreateRooms.makeSomeRooms();
     }
-
 
 
     public String getHotelName() {
@@ -43,8 +41,15 @@ public class Hotel {
         this.roomsInHotel = roomsInHotel;
     }
 
+    public void srartRooms() {
+        this.roomsInHotel = CreateRooms.makeSomeRooms();
+    }
+
     @Override
     public String toString() {
         return String.format("%s, %s. Number of rooms: %d", hotelName, hotelAddress, roomsInHotel.size());
     }
+
+
+
 }
