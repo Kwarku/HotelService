@@ -4,7 +4,7 @@ import pl.narodzinyprogramisty.model.domain.Hotel;
 
 public class CreateHotel {
     public static Hotel makeNewHotel() {
-        Hotel hotel = new Hotel("RadisonBlue", CreateAddres.makeNewAddres());
+        Hotel hotel = new Hotel("RadisonBlue", CreateAddress.makeNewAddress());
         hotel.setRoomsInHotel();
 
         return hotel;

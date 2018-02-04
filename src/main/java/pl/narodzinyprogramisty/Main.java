@@ -60,6 +60,7 @@ public class Main {
                     } catch (NotDirtyRoomException e) {
                         viewer.error(e.toString());
                     }
+                    break;
                 case ABOUT_HOTEL:
                     viewer.aboutHotel(hotel);
                     break;
@@ -68,6 +69,7 @@ public class Main {
                     break;
                 case OTHER:
                     viewer.menuError();
+                    break;
 
             }
         } while (number != 0);
