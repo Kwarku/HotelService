@@ -14,7 +14,6 @@ import pl.narodzinyprogramisty.view.Menu;
 import java.util.List;
 
 public class Main {
-    //todo dopisac klase kotnrolera dla hotelviewr i hotel service
     public static void main(String[] args) {
         HotelViewer viewer = new HotelViewer();
         Hotel hotel = CreateHotel.makeNewHotel();
