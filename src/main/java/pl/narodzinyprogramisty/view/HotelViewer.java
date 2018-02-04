@@ -1,6 +1,6 @@
 package pl.narodzinyprogramisty.view;
 
-import pl.narodzinyprogramisty.model.HotelService;
+import pl.narodzinyprogramisty.controller.HotelServiceController;
 import pl.narodzinyprogramisty.model.domain.Guest;
 import pl.narodzinyprogramisty.model.domain.Hotel;
 import pl.narodzinyprogramisty.model.domain.Room;
@@ -14,7 +14,8 @@ import java.util.Scanner;
 
 public class HotelViewer implements HotelUI {
     private Scanner sc = new Scanner(System.in);
-    private HotelService hotelService = new HotelService();
+    HotelServiceController controller = new HotelServiceController();
+
 
     public void greeting() {
         System.out.println("Hello user. Im hotel room service\n");
@@ -56,11 +57,11 @@ public class HotelViewer implements HotelUI {
     }
 
     public void printAllRooms(Hotel hotel) {
-        printedRooms(hotelService.getAllRooms(hotel));
+        printedRooms(controller.getRooms(hotel));
     }
 
     public void printFreeRoom(Hotel hotel) {
-        printedRooms(hotelService.getAllAvailableRooms(hotel));
+        printedRooms(controller.getAvailableRooms(hotel));
 
     }
 
@@ -77,7 +78,7 @@ public class HotelViewer implements HotelUI {
     }
 
     public void bookRoomInHotel(Hotel hotel, int roomNumber, List <Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        if (hotelService.bookRoom(hotel, roomNumber, guests, numberOfNights)) {
+        if (controller.bookedRoom(hotel, roomNumber, guests, numberOfNights)) {
             System.out.printf("Room %d is yours to %d night", roomNumber, numberOfNights);
         } else {
             System.out.printf("menuError, room %d is booked", roomNumber);
@@ -85,7 +86,7 @@ public class HotelViewer implements HotelUI {
     }
 
     public void freeRoomInHotel(Hotel hotel, int roomNumber) {
-        if (hotelService.makeRoomEmpty(hotel, roomNumber)) {
+        if (controller.emptyRoom(hotel, roomNumber)) {
             System.out.printf("Success, room %d is free now", roomNumber);
         } else {
             System.out.printf("menuError, room %d is not booked", roomNumber);
@@ -93,7 +94,7 @@ public class HotelViewer implements HotelUI {
     }
 
     public void cleanRoomInHotel(Hotel hotel, int roomNumber) throws NotDirtyRoomException {
-        if (hotelService.makeRoomClean(hotel, roomNumber)) {
+        if (controller.cleanRoom(hotel, roomNumber)) {
             System.out.printf("the room nr %d is clean now, you can book it", roomNumber);
         } else {
             System.out.printf("Error, room %d cant be cleaning. We so sorry. Please book other room", roomNumber);
