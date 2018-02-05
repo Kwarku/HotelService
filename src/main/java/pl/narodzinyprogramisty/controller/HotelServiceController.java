@@ -4,6 +4,7 @@ import pl.narodzinyprogramisty.model.HotelService;
 import pl.narodzinyprogramisty.model.domain.Guest;
 import pl.narodzinyprogramisty.model.domain.Hotel;
 import pl.narodzinyprogramisty.model.domain.Room;
+import pl.narodzinyprogramisty.utils.CreateHotel;
 import pl.narodzinyprogramisty.utils.exceptions.DirtyRoomException;
 import pl.narodzinyprogramisty.utils.exceptions.NoAdultGuestException;
 import pl.narodzinyprogramisty.utils.exceptions.NotDirtyRoomException;
@@ -14,23 +15,27 @@ import java.util.List;
 public class HotelServiceController {
     private HotelService hotelService = new HotelService();
 
-    public List<Room> getRooms(Hotel hotel) {
-        return hotelService.getAllRooms(hotel);
+    public List<Room> getRooms() {
+        return hotelService.getAllRooms();
     }
 
-    public List<Room> getAvailableRooms(Hotel hotel) {
-        return hotelService.getAllAvailableRooms(hotel);
+    public List<Room> getAvailableRooms() {
+        return hotelService.getAllAvailableRooms();
     }
 
-    public boolean bookedRoom(Hotel hotel, int roomNumber, List<Guest> guests, int numberOfNights) throws DirtyRoomException, NoAdultGuestException, RoomToSmallException {
-        return hotelService.bookRoom(hotel, roomNumber, guests, numberOfNights);
+    public boolean bookedRoom(int roomNumber, List<Guest> guests, int numberOfNights) throws DirtyRoomException, NoAdultGuestException, RoomToSmallException {
+        return hotelService.bookRoom(roomNumber, guests, numberOfNights);
     }
 
-    public boolean emptyRoom(Hotel hotel, int roomNumber) {
-        return hotelService.makeRoomEmpty(hotel, roomNumber);
+    public boolean emptyRoom(int roomNumber) {
+        return hotelService.makeRoomEmpty(roomNumber);
     }
 
-    public boolean cleanRoom(Hotel hotel, int roomNumber) throws NotDirtyRoomException {
-        return hotelService.makeRoomClean(hotel, roomNumber);
+    public boolean cleanRoom(int roomNumber) throws NotDirtyRoomException {
+        return hotelService.makeRoomClean(roomNumber);
+    }
+
+    public Hotel showHotel(){
+        return hotelService.getHotel();
     }
 }

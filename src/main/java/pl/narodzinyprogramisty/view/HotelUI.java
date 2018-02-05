@@ -1,7 +1,6 @@
 package pl.narodzinyprogramisty.view;
 
 import pl.narodzinyprogramisty.model.domain.Guest;
-import pl.narodzinyprogramisty.model.domain.Hotel;
 import pl.narodzinyprogramisty.utils.exceptions.DirtyRoomException;
 import pl.narodzinyprogramisty.utils.exceptions.NoAdultGuestException;
 import pl.narodzinyprogramisty.utils.exceptions.NotDirtyRoomException;
@@ -11,17 +10,17 @@ import java.util.List;
 
 public interface HotelUI extends AppUI {
 
-    void aboutHotel(Hotel hotel);
+    void aboutHotel();
 
-    void printAllRooms(Hotel hotel);
+    void printAllRooms();
 
-    void printFreeRoom(Hotel hotel);
+    void printFreeRoom();
 
-    void bookRoomInHotel(Hotel hotel, int roomNumber, List<Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
+    void bookRoomInHotel(int roomNumber, List<Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
 
-    void freeRoomInHotel(Hotel hotel, int roomNumber);
+    void freeRoomInHotel(int roomNumber);
 
-    void cleanRoomInHotel(Hotel hotel, int roomNumber) throws NotDirtyRoomException;
+    void cleanRoomInHotel(int roomNumber) throws NotDirtyRoomException;
 
 }
 

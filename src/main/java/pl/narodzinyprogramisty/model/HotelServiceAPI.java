@@ -12,13 +12,13 @@ import java.util.List;
 
 public interface HotelServiceAPI {
 
-    List<Room> getAllRooms(Hotel hotel);
+    List<Room> getAllRooms();
 
-    List<Room> getAllAvailableRooms(Hotel hotel);
+    List<Room> getAllAvailableRooms();
 
-    boolean bookRoom(Hotel hotel, int number, List<Guest> guests, int numberOfNights ) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
+    boolean bookRoom(int number, List<Guest> guests, int numberOfNights ) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException;
 
-    boolean makeRoomEmpty(Hotel hotel, int number);
+    boolean makeRoomEmpty(int number);
 
-    boolean makeRoomClean(Hotel hotel, int number) throws NotDirtyRoomException, DirtyRoomException;
+    boolean makeRoomClean(int number) throws NotDirtyRoomException, DirtyRoomException;
 }

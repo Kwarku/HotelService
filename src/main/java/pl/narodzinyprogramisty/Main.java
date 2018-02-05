@@ -16,58 +16,58 @@ import java.util.List;
 public class Main {
     //todo dopisac klase kotnrolera dla hotelviewr i hotel service
     public static void main(String[] args) {
-        HotelViewer viewer = new HotelViewer();
-        Hotel hotel = CreateHotel.makeNewHotel();
+        HotelViewer radisonViewer = new HotelViewer();
+//        Hotel hotel = CreateHotel.makeNewHotel();
         List <Guest> guestList;
         int roomNumber;
         int numberOfNight;
 
         int number;
-        viewer.greeting();
+        radisonViewer.greeting();
 
 
         do {
-            number = viewer.menu();
+            number = radisonViewer.menu();
             switch (Menu.getMenu(number)) {
                 case ALL:
-                    viewer.printAllRooms(hotel);
+                    radisonViewer.printAllRooms();
                     break;
                 case FREE:
-                    viewer.printAllRooms(hotel);
+                    radisonViewer.printAllRooms();
                     break;
                 case BOOK_ROOM:
                     try {
-                        roomNumber = viewer.askForRoomNumber();
-                        guestList = CreateGuests.makeSomeGuest(viewer.askForGuestNumber());
-                        numberOfNight = viewer.askForNumberOfNights();
-                        viewer.bookRoomInHotel(hotel,roomNumber, guestList, numberOfNight);
+                        roomNumber = radisonViewer.askForRoomNumber();
+                        guestList = CreateGuests.makeSomeGuest(radisonViewer.askForGuestNumber());
+                        numberOfNight = radisonViewer.askForNumberOfNights();
+                        radisonViewer.bookRoomInHotel(roomNumber, guestList, numberOfNight);
                     } catch (NoAdultGuestException e) {
-                        viewer.error(e.toString());
+                        radisonViewer.error(e.toString());
                     } catch (RoomToSmallException e) {
-                        viewer.error(e.toString());
+                        radisonViewer.error(e.toString());
                     } catch (DirtyRoomException e) {
-                        viewer.error(e.toString());
+                        radisonViewer.error(e.toString());
                     }
                     break;
                 case FREE_ROOM:
-                    roomNumber = viewer.askForRoomNumber();
-                    viewer.freeRoomInHotel(hotel, roomNumber);
+                    roomNumber = radisonViewer.askForRoomNumber();
+                    radisonViewer.freeRoomInHotel(roomNumber);
                     break;
                 case CLEAN_ROOM:
                     try {
-                        roomNumber = viewer.askForRoomNumber();
-                        viewer.cleanRoomInHotel(hotel, roomNumber);
+                        roomNumber = radisonViewer.askForRoomNumber();
+                        radisonViewer.cleanRoomInHotel(roomNumber);
                     } catch (NotDirtyRoomException e) {
-                        viewer.error(e.toString());
+                        radisonViewer.error(e.toString());
                     }
                 case ABOUT_HOTEL:
-                    viewer.aboutHotel(hotel);
+                    radisonViewer.aboutHotel();
                     break;
                 case CLOSE:
-                    viewer.farewell();
+                    radisonViewer.farewell();
                     break;
                 case OTHER:
-                    viewer.menuError();
+                    radisonViewer.menuError();
 
             }
         } while (number != 0);

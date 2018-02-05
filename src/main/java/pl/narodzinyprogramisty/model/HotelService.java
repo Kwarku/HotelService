@@ -3,6 +3,7 @@ package pl.narodzinyprogramisty.model;
 import pl.narodzinyprogramisty.model.domain.Guest;
 import pl.narodzinyprogramisty.model.domain.Hotel;
 import pl.narodzinyprogramisty.model.domain.Room;
+import pl.narodzinyprogramisty.utils.CreateHotel;
 import pl.narodzinyprogramisty.utils.exceptions.DirtyRoomException;
 import pl.narodzinyprogramisty.utils.exceptions.NoAdultGuestException;
 import pl.narodzinyprogramisty.utils.exceptions.NotDirtyRoomException;
@@ -15,42 +16,52 @@ import java.util.List;
 public class HotelService implements HotelServiceAPI {
     private static final int YEARS_TO_ADULTS = 18;
 
-    public List<Room> getAllRooms(Hotel hotel) {
+    private Hotel hotel;
+
+    public HotelService(){
+        this(CreateHotel.makeNewHotel());
+    }
+
+    public HotelService(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public List<Room> getAllRooms() {
         List<Room> rooms = createRoomsList();
         rooms.addAll(hotel.getRoomsInHotel());
         return rooms;
     }
 
 
-    public List<Room> getAllAvailableRooms(Hotel hotel) {
+    public List<Room> getAllAvailableRooms() {
         List<Room> availableRooms = createRoomsList();
-        takeAvailableRoom(hotel, availableRooms);
+        takeAvailableRoom(availableRooms);
         return availableRooms;
     }
 
 
-    public boolean bookRoom(Hotel hotel, int roomNumber, List<Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        if (isReadyToOrder(getRoom(hotel, roomNumber), guests)) {
-            setReservation(getRoom(hotel, roomNumber));
-            accommodateGuests(getRoom(hotel, roomNumber), guests);
-            setDateOfReleaseRoom(getRoom(hotel, roomNumber), numberOfNights);
+    public boolean bookRoom(int roomNumber, List<Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+        if (isReadyToOrder(getRoom(roomNumber), guests)) {
+            setReservation(getRoom(roomNumber));
+            accommodateGuests(getRoom(roomNumber), guests);
+            setDateOfReleaseRoom(getRoom(roomNumber), numberOfNights);
             return true;
         }
         return false;
     }
 
 
-    public boolean makeRoomEmpty(Hotel hotel, int roomNumber) {
-        if (!isRoomFree(getRoom(hotel, roomNumber))) {
-            releaseTheRoom(getRoom(hotel, roomNumber));
+    public boolean makeRoomEmpty(int roomNumber) {
+        if (!isRoomFree(getRoom(roomNumber))) {
+            releaseTheRoom(getRoom(roomNumber));
             return true;
         }
         return false;
     }
 
-    public boolean makeRoomClean(Hotel hotel, int roomNumber) throws NotDirtyRoomException {
-        if (isRoomDirty(getRoom(hotel, roomNumber))) {
-            cleanRoom(getRoom(hotel, roomNumber));
+    public boolean makeRoomClean(int roomNumber) throws NotDirtyRoomException {
+        if (isRoomDirty(getRoom(roomNumber))) {
+            cleanRoom(getRoom(roomNumber));
             return true;
         }
         throw new NotDirtyRoomException();
@@ -111,7 +122,7 @@ public class HotelService implements HotelServiceAPI {
         return new ArrayList<>();
     }
 
-    private void takeAvailableRoom(Hotel hotel, List<Room> freeRooms) {
+    private void takeAvailableRoom(List<Room> freeRooms) {
         for (Room room : hotel.getRoomsInHotel()) {
             if (room.isAvailable() && room.isClean()) {
                 freeRooms.add(room);
@@ -119,7 +130,7 @@ public class HotelService implements HotelServiceAPI {
         }
     }
 
-    private Room getRoom(Hotel hotel, int roomNumber) {
+    private Room getRoom(int roomNumber) {
         return hotel.getRoomsInHotel().get(roomNumber - 1);
     }
 
@@ -150,5 +161,7 @@ public class HotelService implements HotelServiceAPI {
         room.setGuestList(null);
     }
 
-
+    public Hotel getHotel() {
+        return hotel;
+    }
 }

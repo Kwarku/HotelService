@@ -52,16 +52,16 @@ public class HotelViewer implements HotelUI {
         System.out.println(msg);
     }
 
-    public void aboutHotel(Hotel hotel) {
-        System.out.println("About hotel : " + hotel.toString());
+    public void aboutHotel() {
+        System.out.println("About hotel : " + controller.showHotel().toString());
     }
 
-    public void printAllRooms(Hotel hotel) {
-        printedRooms(controller.getRooms(hotel));
+    public void printAllRooms() {
+        printedRooms(controller.getRooms());
     }
 
-    public void printFreeRoom(Hotel hotel) {
-        printedRooms(controller.getAvailableRooms(hotel));
+    public void printFreeRoom() {
+        printedRooms(controller.getAvailableRooms());
 
     }
 
@@ -77,24 +77,24 @@ public class HotelViewer implements HotelUI {
         }
     }
 
-    public void bookRoomInHotel(Hotel hotel, int roomNumber, List <Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
-        if (controller.bookedRoom(hotel, roomNumber, guests, numberOfNights)) {
+    public void bookRoomInHotel(int roomNumber, List <Guest> guests, int numberOfNights) throws NoAdultGuestException, RoomToSmallException, DirtyRoomException {
+        if (controller.bookedRoom(roomNumber, guests, numberOfNights)) {
             System.out.printf("Room %d is yours to %d night", roomNumber, numberOfNights);
         } else {
             System.out.printf("menuError, room %d is booked", roomNumber);
         }
     }
 
-    public void freeRoomInHotel(Hotel hotel, int roomNumber) {
-        if (controller.emptyRoom(hotel, roomNumber)) {
+    public void freeRoomInHotel(int roomNumber) {
+        if (controller.emptyRoom(roomNumber)) {
             System.out.printf("Success, room %d is free now", roomNumber);
         } else {
             System.out.printf("menuError, room %d is not booked", roomNumber);
         }
     }
 
-    public void cleanRoomInHotel(Hotel hotel, int roomNumber) throws NotDirtyRoomException {
-        if (controller.cleanRoom(hotel, roomNumber)) {
+    public void cleanRoomInHotel(int roomNumber) throws NotDirtyRoomException {
+        if (controller.cleanRoom(roomNumber)) {
             System.out.printf("the room nr %d is clean now, you can book it", roomNumber);
         } else {
             System.out.printf("Error, room %d cant be cleaning. We so sorry. Please book other room", roomNumber);
