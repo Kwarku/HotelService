@@ -14,9 +14,7 @@ public class Hotel {
         this.hotelName = hotelName;
         this.hotelAddress = hotelAddress;
 
-//        hotelRoomService = CreateRooms.makeSomeRooms();
     }
-
 
 
     public String getHotelName() {
@@ -39,7 +37,11 @@ public class Hotel {
         return roomsInHotel;
     }
 
-    public void setRoomsInHotel(){
+    public void setRoomsInHotel(List<Room> roomsInHotel) {
+        this.roomsInHotel = roomsInHotel;
+    }
+
+    public void srartRooms() {
         this.roomsInHotel = CreateRooms.makeSomeRooms();
     }
 
@@ -47,4 +49,7 @@ public class Hotel {
     public String toString() {
         return String.format("%s, %s. Number of rooms: %d", hotelName, hotelAddress, roomsInHotel.size());
     }
+
+
+
 }
